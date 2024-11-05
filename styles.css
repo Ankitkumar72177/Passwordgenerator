@@ -6,6 +6,16 @@ body {
     height: 100vh;
     margin: 0;
     transition: background-color 0.3s, color 0.3s;
+
+    input[type="checkbox" i] {
+        background-color: initial;
+        cursor: default;
+        appearance: auto;
+        box-sizing: border-box;
+        margin: 3px 3px 3px -40px;
+        padding: initial;
+        border: initial;
+    }
 }
 
 .container {
@@ -32,7 +42,7 @@ body {
 
 .password-generator label {
     display: block;
-    margin:9px 70px 3px;
+    margin:9px 66px 3px;
     font-weight: bold;
     text-align: center;
 }
