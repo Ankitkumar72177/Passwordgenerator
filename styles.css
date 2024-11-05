@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-   
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -16,11 +16,10 @@ body {
 }
 
 .password-generator {
-    background-color: #fff;
     padding: 30px;
     border-radius: 15px;
-    border: 2px solid #ccc;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border: 2px solid #444;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     text-align: center;
     max-width: 400px;
     width: 100%;
@@ -29,23 +28,29 @@ body {
 .password-generator h1 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #333;
 }
 
 .password-generator label {
     display: block;
-    margin: 10px 86px 9px;
+    margin:9px 70px 3px;
     font-weight: bold;
-    color: #555;
+    text-align: center;
 }
 
 .password-generator input[type="number"] {
-    width: 60px;
     padding: 5px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
+    width: 60px; /* Different width for length input */
+}
+
+.password-generator input[type="text"] {
+    padding: 10px; /* Different padding for password display */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80%; /* Full width for password display */
 }
 
 .checkbox-container {
@@ -54,42 +59,74 @@ body {
     margin-bottom: 10px;
 }
 
-.checkbox-container label {
-    margin-right: 10px;
-}
-
-.password-generator input[type="text"] {
-    width: calc(100% - 24px);
-    padding: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
 .password-generator button {
     padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
-.password-generator button:hover {
-    background-color: #0056b3;
+/* Dark mode */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
 }
 
-.password-generator button:active {
-    background-color: #004494;
+.dark-mode .password-generator {
+    background-color: #1e1e1e;
+    border: 2px solid #444;
+}
+
+.dark-mode label {
+    color: #bbb;
+}
+
+.dark-mode input[type="number"],
+.dark-mode input[type="text"] {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+/* Light mode */
+.light-mode {
+    background-color: #f4f4f4;
+    color: #000;
+}
+
+.light-mode .password-generator {
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+}
+
+.light-mode label {
+    color: #333;
+}
+
+.light-mode input[type="number"],
+.light-mode input[type="text"] {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    background-color: #007bff;
+    transition: background-color 0.3s ease;
+}
+
+#theme-toggle:hover {
+    background-color: #0056b3;
 }

@@ -1,5 +1,6 @@
 document.getElementById('generate').addEventListener('click', generatePassword);
 document.getElementById('copy').addEventListener('click', copyPassword);
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 function generatePassword() {
     const length = document.getElementById('length').value;
@@ -38,4 +39,9 @@ function copyPassword() {
         .catch(err => {
             console.error('Could not copy text: ', err);
         });
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
 }
