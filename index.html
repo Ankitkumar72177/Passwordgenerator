@@ -3,39 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Password Generator</title>
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark-mode">
-    <button id="theme-toggle" class="theme-toggle">&#9788;</button> <!-- Toggle Button -->
+<body>
     <div class="container">
-        <div class="password-generator">
-            <h1>Random Password Generator</h1>
-            <label for="length">Length:</label>
-            <input type="number" id="length" value="10" min="1">
-            <div class="checkbox-container">
-                <label for="lowercase">Include lowercase (a-z)</label>
-                <input type="checkbox" id="lowercase" checked>
-            </div>
-            <div class="checkbox-container">
-                <label for="uppercase">Include uppercase (A-Z)</label>
+        <div class="header">
+            <h1>
+                <i class="fas fa-shield-alt shield-icon"></i>
+                Password Generator
+            </h1>
+            <i class="fas fa-sun theme-toggle"></i>
+        </div>
+
+        <div class="password-length">
+            <label>Password Length</label>
+            <input type="range" id="length" min="4" max="50" value="16">
+            <span id="lengthValue">16</span>
+        </div>
+
+        <div class="options">
+            <div class="option">
                 <input type="checkbox" id="uppercase" checked>
+                <label for="uppercase">
+                    <div class="checkbox-custom"></div>
+                    Uppercase Letters (A-Z)
+                </label>
             </div>
-            <div class="checkbox-container">
-                <label for="numbers">Include numbers (0-9)</label>
+            <div class="option">
+                <input type="checkbox" id="lowercase" checked>
+                <label for="lowercase">
+                    <div class="checkbox-custom"></div>
+                    Lowercase Letters (a-z)
+                </label>
+            </div>
+            <div class="option">
                 <input type="checkbox" id="numbers" checked>
+                <label for="numbers">
+                    <div class="checkbox-custom"></div>
+                    Numbers (0-9)
+                </label>
             </div>
-            <div class="checkbox-container">
-                <label for="symbols">Include symbols (!-!)</label>
+            <div class="option">
                 <input type="checkbox" id="symbols" checked>
-            </div>
-            <input type="text" id="password" readonly>
-            <div class="button-container">
-                <button id="generate">Generate Password</button>
-                <button id="copy">Copy Password</button>
+                <label for="symbols">
+                    <div class="checkbox-custom"></div>
+                    Special Characters (!@#$%^&*()_+)
+                </label>
             </div>
         </div>
+
+        <button class="generate-btn" onclick="generatePassword()">
+            <i class="fas fa-sync-alt"></i>
+            Generate Password
+        </button>
+
+        <div class="password-display">
+            <span id="passwordDisplay">Click Generate to create password</span>
+            <button class="copy-btn" onclick="copyPassword()">
+                <i class="far fa-copy"></i>
+            </button>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

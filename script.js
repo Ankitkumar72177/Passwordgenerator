@@ -1,47 +1,86 @@
-document.getElementById('generate').addEventListener('click', generatePassword);
-document.getElementById('copy').addEventListener('click', copyPassword);
-document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+// Update length value display
+const lengthSlider = document.getElementById('length');
+const lengthValue = document.getElementById('lengthValue');
+lengthSlider.addEventListener('input', () => {
+    lengthValue.textContent = lengthSlider.value;
+});
 
 function generatePassword() {
     const length = document.getElementById('length').value;
-    const includeLowercase = document.getElementById('lowercase').checked;
-    const includeUppercase = document.getElementById('uppercase').checked;
-    const includeNumbers = document.getElementById('numbers').checked;
-    const includeSymbols = document.getElementById('symbols').checked;
+    const uppercase = document.getElementById('uppercase').checked;
+    const lowercase = document.getElementById('lowercase').checked;
+    const numbers = document.getElementById('numbers').checked;
+    const symbols = document.getElementById('symbols').checked;
 
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+    if (!uppercase && !lowercase && !numbers && !symbols) {
+        alert('Please select at least one character type');
+        return;
+    }
 
-    let characters = '';
-    if (includeLowercase) characters += lowercase;
-    if (includeUppercase) characters += uppercase;
-    if (includeNumbers) characters += numbers;
-    if (includeSymbols) characters += symbols;
+    let chars = '';
+    if (uppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (lowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (numbers) chars += '0123456789';
+    if (symbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
     let password = '';
     for (let i = 0; i < length; i++) {
-        password += characters.charAt(Math.floor(Math.random() * characters.length));
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
     }
 
-    document.getElementById('password').value = password;
+    document.getElementById('passwordDisplay').textContent = password;
 }
 
 function copyPassword() {
-    const passwordField = document.getElementById('password');
-    passwordField.select();
-    passwordField.setSelectionRange(0, 99999); // For mobile devices
-    navigator.clipboard.writeText(passwordField.value)
+    const passwordDisplay = document.getElementById('passwordDisplay');
+    const password = passwordDisplay.textContent;
+    
+    if (password === 'Click Generate to create password') {
+        alert('Generate a password first!');
+        return;
+    }
+
+    navigator.clipboard.writeText(password)
         .then(() => {
-            alert('Password copied to clipboard!');
+            const copyBtn = document.querySelector('.copy-btn i');
+            copyBtn.className = 'fas fa-check';
+            setTimeout(() => {
+                copyBtn.className = 'far fa-copy';
+            }, 1500);
         })
         .catch(err => {
-            console.error('Could not copy text: ', err);
+            console.error('Failed to copy password:', err);
+            alert('Failed to copy password to clipboard');
         });
 }
 
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode');
+// Theme management
+const themeToggle = document.querySelector('.theme-toggle');
+const container = document.querySelector('.container');
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+    themeToggle.classList.replace('fa-sun', 'fa-moon');
 }
+
+themeToggle.addEventListener('click', () => {
+    // Add transition class
+    container.classList.add('theme-transition');
+    
+    // Toggle theme
+    document.body.classList.toggle('light-theme');
+    themeToggle.classList.toggle('fa-sun');
+    themeToggle.classList.toggle('fa-moon');
+    
+    // Save theme preference
+    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    localStorage.setItem('theme', currentTheme);
+    
+    // Remove transition class after animation
+    setTimeout(() => {
+        container.classList.remove('theme-transition');
+    }, 300);
+});
